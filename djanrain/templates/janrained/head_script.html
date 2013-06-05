@@ -3,7 +3,7 @@
         if (typeof window.janrain !== 'object') window.janrain = {};
         if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
 
-        janrain.settings.tokenUrl = 'http://{{ site.domain }}{% url janrained.views.get_token_view %}';
+        janrain.settings.tokenUrl = 'http://{{ site.domain }}{% url djanrain.views.get_token_view %}';
 
         function isReady() { janrain.ready = true; };
         if (document.addEventListener) {
@@ -17,9 +17,9 @@
         e.id = 'janrainAuthWidget';
 
         if (document.location.protocol === 'https:') {
-            e.src = 'https://rpxnow.com/js/lib/{{ janrained_site.app_name }}/engage.js';
+            e.src = 'https://rpxnow.com/js/lib/{{ djanrain_site.app_name }}/engage.js';
         } else {
-            e.src = 'http://widget-cdn.rpxnow.com/js/lib/{{ janrained_site.app_name }}/engage.js';
+            e.src = 'http://widget-cdn.rpxnow.com/js/lib/{{ djanrain_site.app_name }}/engage.js';
         }
 
         var s = document.getElementsByTagName('script')[0];

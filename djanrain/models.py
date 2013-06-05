@@ -11,13 +11,13 @@ def rand_string(n):
     return "".join(random.choice(string.ascii_letters + string.digits) for _ in range(n))
 
 
-class JanrainedAuthManager(models.Manager):
+class DjanrainAuthManager(models.Manager):
 
     def get_or_create_from_profile(self, profile):
         identifier = profile['identifier']
         try:
-            return JanrainedAuth.objects.get(identifier=identifier), False
-        except JanrainedAuth.DoesNotExist:
+            return DjanrainAuth.objects.get(identifier=identifier), False
+        except DjanrainAuth.DoesNotExist:
             username_options = [
                 'preferredUsername',
                 'email',
@@ -36,7 +36,7 @@ class JanrainedAuthManager(models.Manager):
                 break
 
             while username is None:  # still
-                attempt = "janrained-{0}".format(rand_string(10))
+                attempt = "djanrain-{0}".format(rand_string(10))
                 if not User.objects.filter(username=attempt).exists():
                     username = attempt
 
@@ -54,12 +54,12 @@ class JanrainedAuthManager(models.Manager):
             ), True
 
 
-class JanrainedAuth(models.Model):
+class DjanrainAuth(models.Model):
     user = models.ForeignKey(User)
     identifier = models.CharField(max_length=256)
     profile_json = models.TextField()
 
-    objects = JanrainedAuthManager()
+    objects = DjanrainAuthManager()
 
     @property
     def profile(self):
@@ -73,10 +73,10 @@ class JanrainedAuth(models.Model):
 JR_SITE_CACHE = {}
 
 
-class JanrainedSiteManager(models.Manager):
+class DjanrainSiteManager(models.Manager):
     def get_current(self):
         """
-        get the JanrainedSite for the current Site
+        get the DjanrainSite for the current Site
         """
         site = Site.objects.get_current()
         try:
@@ -88,13 +88,13 @@ class JanrainedSiteManager(models.Manager):
 
     def clear_cache(self):
         """
-        Clears the ``JanrainedSite`` object cache.
+        Clears the ``DjanrainSite`` object cache.
         """
         global JR_SITE_CACHE
         JR_SITE_CACHE = {}
 
 
-class JanrainedSite(models.Model):
+class DjanrainSite(models.Model):
     """
     Stores Janrain settings (including the secret api key) so that they don't have to be hardcoded
     """
@@ -103,4 +103,4 @@ class JanrainedSite(models.Model):
     app_id = models.CharField(max_length=64)
     secret_key = models.CharField(max_length=64)
 
-    objects = JanrainedSiteManager()
+    objects = DjanrainSiteManager()

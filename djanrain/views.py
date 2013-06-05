@@ -6,19 +6,19 @@ from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
-from janrained.models import JanrainedSite
+from djanrain.models import DjanrainSite
 
 
 class LoginView(TemplateView):
     """
     Janrain-backed login view.  Displays Janrain widget.
     """
-    template_name = "janrained/login.html"
+    template_name = "djanrain/login.html"
 
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data(**kwargs)
         context['site'] = Site.objects.get_current()
-        context['janrained_site'] = JanrainedSite.objects.get_current()
+        context['djanrain_site'] = DjanrainSite.objects.get_current()
         return context
 
 login_view = LoginView.as_view()
@@ -39,7 +39,7 @@ class GetTokenView(RedirectView):
         token = self.request.POST['token']
 
         if self.request.user.is_authenticated():
-            # todo: associate new JanrainedAuth with existing account
+            # todo: associate new DjanrainAuth with existing account
             return self.request.path
         else:
             user = authenticate(janrain_token=token)

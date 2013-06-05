@@ -1,9 +1,9 @@
 from django.contrib import admin
-from janrained.models import JanrainedSite, JanrainedAuth
+from djanrain.models import DjanrainSite, DjanrainAuth
 
-class JanrainedAuthInline(admin.TabularInline):
-    model = JanrainedAuth
+class DjanrainAuthInline(admin.TabularInline):
+    model = DjanrainAuth
     fields = ['identifier', 'profile']
     readonly_fields = fields
 
-admin.site.register(JanrainedSite)
+admin.site.register(DjanrainSite)
