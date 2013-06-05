@@ -9,5 +9,6 @@ setup(
     author='Chase Caster',
     author_email='sealgair@gmail.com',
     url='https://github.com/sealgair/djanrain/',
-    packages=find_packages(),
+    packages=['djanrain'],
+    include_package_data=True,
 )
